@@ -1,0 +1,59 @@
+server:
+  port: 8092
+  servlet:
+    multipart:    # spring mvc file upload
+      max-request-size: 10MB
+      max-file-size: 1MB
+    context-path: /account
+spring:
+  application:
+    name: accounting-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/account?CreateDatabaseIfNotExist=true
+    username: postgres
+    password: root
+    initialization-mode: always
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        namingStrategy: org.hibernate.cfg.PhysicalNamingStrategy
+  cloud:
+    discovery:
+      enabled: false
+
+azure:
+  storage:
+    default-endpoints-protocol: https
+    account-name: account-name
+    account-key: account-key
+    endpoint-suffix: endpoint-suffix
+    container-reference: container-reference
+    generate-thumbnail: false
+
+#  jackson:
+#    serialization:
+#      write-date-keys-as-timestamps: false
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://20.90.104.45:8761/eureka
+  instance:
+    hostname: 20.90.104.45
+## Azure Active directory configuration
+#azure:
+#  activedirectory:
+#    tenant-id: xxxxxx-your-tenant-id-xxxxxx
+#    client-id: xxxxxx-your-client-id-xxxxxx
+#    client-secret: xxxxxx-your-client-secret-xxxxxx
+logging:
+  level:
+    '[com.ros.accounting]': DEBUG
